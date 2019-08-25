@@ -11,7 +11,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
     [SerializationConfig(MemberSerialization.OptIn)]
     public class LiquidTemperatureFilter : IBuildingConfig
     {
-        public const string Id = "Kelmen-LiquidTemperatureFilter";
+        public const string ID = "Kelmen-LiquidTemperatureFilter";
 
         public const string DisplayName = "Liquid Temperature Filter";
         public const string Description = "Intend to work like the vanila liquid filter but by temperature instead of liquid type.";
@@ -24,7 +24,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         public override BuildingDef CreateBuildingDef()
         {
             var buildingDef = BuildingTemplates.CreateBuildingDef(
-                id: Id,
+                id: ID,
                 width: 3,
                 height: 1,
                 anim: "filter_liquid_kanim",
@@ -91,17 +91,17 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 
         public static void SetDescriptions()
         {
-            AddBuildingStrings(Id, DisplayName, Description, Effect);
+            AddBuildingStrings(ID, DisplayName, Description, Effect);
         }
 
         public static void SetMenu()
         {
-            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Plumbing, Id);
+            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Plumbing, ID);
         }
 
         public static void SetTechTree()
         {
-            AddBuildingToTechnology(GameStrings.Technology.Liquids.LiquidTuning, Id);
+            AddBuildingToTechnology(GameStrings.Technology.Liquids.LiquidTuning, ID);
         }
 
         public static Color32 ChangeColor()

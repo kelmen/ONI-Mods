@@ -11,7 +11,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
     [SerializationConfig(MemberSerialization.OptIn)]
     public class GasTemperatureFilter : IBuildingConfig
     {
-        public const string Id = "Kelmen-GasTemperatureFilter";
+        public const string ID = "Kelmen-GasTemperatureFilter";
 
         public const string DisplayName = "Gas Temperature Filter";
         public const string Description = "Intend to work like the vanila gas filter but by temperature instead of gas type.";
@@ -24,7 +24,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         public override BuildingDef CreateBuildingDef()
         {
             var buildingDef = BuildingTemplates.CreateBuildingDef(
-                id: Id,
+                id: ID,
                 width: 3,
                 height: 1,
                 anim: "filter_gas_kanim",
@@ -96,17 +96,17 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 
         public static void SetDescriptions()
         {
-            AddBuildingStrings(Id, DisplayName, Description, Effect);
+            AddBuildingStrings(ID, DisplayName, Description, Effect);
         }
 
         public static void SetMenu()
         {
-            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Ventilation, Id);
+            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Ventilation, ID);
         }
 
         public static void SetTechTree()
         {
-            AddBuildingToTechnology(GameStrings.Technology.Gases.HVAC, Id);
+            AddBuildingToTechnology(GameStrings.Technology.Gases.HVAC, ID);
         }
 
         public static Color32 ChangeColor()

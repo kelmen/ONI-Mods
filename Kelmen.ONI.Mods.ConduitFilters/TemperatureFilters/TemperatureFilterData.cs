@@ -98,5 +98,13 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         }
 
         #endregion
+
+        public int GetOutputRouteIdx(float temperature, int outputRoute1Idx, int outputRoute2Idx)
+        {
+            if (this.ActivateAboveThreshold)
+                return (temperature < this.Threshold) ? outputRoute1Idx : outputRoute2Idx;
+            else
+                return (temperature > this.Threshold) ? outputRoute1Idx : outputRoute2Idx;
+        }
     }
 }

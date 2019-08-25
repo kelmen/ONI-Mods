@@ -31,7 +31,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (LiquidTemperatureFilter.Id + "Complete")) == 0)
+                if (string.Compare(__instance.name, (LiquidTemperatureFilter.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;

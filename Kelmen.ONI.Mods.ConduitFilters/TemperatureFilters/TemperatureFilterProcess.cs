@@ -32,8 +32,8 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         [MyCmpReq]
         Building Building = null;
 
-        //[MyCmpReq]
-        //KSelectable Selectable = null;
+        [MyCmpReq]
+        KSelectable Selectable = null;
 
         [MyCmpReq]
         Operational Operation = null;
@@ -43,6 +43,10 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         //public TemperatureFilterData FilterData;
 
         Guid OutputConduit2StatusGuid = Guid.Empty;
+
+        //static StatusItem filterStatusItem = null;
+
+        //HandleVector<int>.Handle partitionerEntry;
 
         ConduitFlow _FlowMgr = null;
         ConduitFlow FlowMgr
@@ -91,6 +95,13 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
             }
         }
 
+        protected override void OnPrefabInit()
+        {
+            base.OnPrefabInit();
+
+            //this.InitializeStatusItems();
+        }
+
         protected override void OnSpawn()
         {
             base.OnSpawn();
@@ -106,11 +117,35 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
             NetworkMgr.AddToNetworks(OutputCell2, OutputItem2, true);
 
             this.GetComponent<ConduitConsumer>().isConsuming = false;
-
+            
             FlowMgr.AddConduitUpdater(OnConduitUpdate);
 
-            //this.UpdateBuildingStatus();
-            //this.UpdateConduitBlockedStatus();
+            #region no idea what these do, just copy from game codes ElementFilter.OnSpawn()
+
+            //((KSelectable)((Component)this).GetComponent<KSelectable>()).SetStatusItem(Db.Get().StatusItemCategories.Main, TemperatureFilterProcess.filterStatusItem, (object)this);
+
+            //this.UpdateConduitExistsStatus();
+            this.UpdateConduitBlockedStatus();
+
+            //ScenePartitionerLayer layer = (ScenePartitionerLayer)null;
+            //switch (this.ConduitType)
+            //{
+            //    case ConduitType.Gas:
+            //        layer = GameScenePartitioner.Instance.gasConduitsLayer;
+            //        break;
+            //    case ConduitType.Liquid:
+            //        layer = GameScenePartitioner.Instance.liquidConduitsLayer;
+            //        break;
+            //    case ConduitType.Solid:
+            //        layer = GameScenePartitioner.Instance.solidConduitsLayer;
+            //        break;
+            //}
+            //if (layer == null)
+            //    return;
+
+            //this.partitionerEntry = GameScenePartitioner.Instance.Add("TemperatureFilterProcessConduitExists", this.gameObject, OutputCell2, layer, (System.Action<object>)(data => this.UpdateConduitExistsStatus()));
+
+            #endregion
         }
 
         protected override void OnCleanUp()
@@ -118,85 +153,72 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
             FlowMgr.RemoveConduitUpdater(this.OnConduitUpdate);
             NetworkMgr.RemoveFromNetworks(this.OutputCell2, this.OutputItem2, true);
 
+            //if (this.partitionerEntry.IsValid() && (GameScenePartitioner.Instance != null))
+            //    GameScenePartitioner.Instance.Free(ref this.partitionerEntry);
+
             base.OnCleanUp();
         }
 
         void OnConduitUpdate(float data)
         {
-            //bool setActive = false;
-            //this.UpdateConduitBlockedStatus();
+            bool setActive = false;
+            this.UpdateConduitBlockedStatus();
 
-            if (!this.Operation.IsOperational)
-                return;
-
-            var inputContent = FlowMgr.GetContents(InputCell);
-            if (inputContent.mass > 0f)
+            if (this.Operation.IsOperational)
             {
-                int outputCellIdx;
-                var filterData = this;
-
-                if (filterData.ActivateAboveThreshold)
-                    outputCellIdx = inputContent.temperature < filterData.Threshold ? this.OutputCell1 : this.OutputCell2;
-                else
-                    outputCellIdx = inputContent.temperature > filterData.Threshold ? this.OutputCell1 : this.OutputCell2;
-
-                //bool elementMovedWhole = true;
-                float massMove = inputContent.mass;
-                int diseaseCount = inputContent.diseaseCount;
-
-                if (!FlowMgr.IsConduitEmpty(outputCellIdx))
+                var inputContent = FlowMgr.GetContents(InputCell);
+                if (inputContent.mass > 0f)
                 {
-                    var outputContent = FlowMgr.GetContents(outputCellIdx);
-                    if ((outputContent.mass >= this.ConduitMassMax)
-                        || (!inputContent.element.Equals(outputContent.element))
-                        //|| (inputContent.diseaseIdx != outputContent.diseaseIdx)
-                        )
-                        return;
+                    var filterData = this;
+                    int outputCellIdx = filterData.GetOutputRouteIdx(inputContent.temperature, this.OutputCell1, this.OutputCell2);
 
-                    //if (inputContent.diseaseIdx == outputContent.diseaseIdx)
-                    //    diseaseCount += outputContent.diseaseCount;
+                    //bool elementMovedWhole = true;
+                    float massMove = inputContent.mass;
+                    int diseaseCount = inputContent.diseaseCount;
 
-                    if ((inputContent.mass + outputContent.mass) > this.ConduitMassMax)
+                    if (!FlowMgr.IsConduitEmpty(outputCellIdx))
                     {
-                        //elementMovedWhole = false;
-                        massMove = this.ConduitMassMax - outputContent.mass;
+                        var outputContent = FlowMgr.GetContents(outputCellIdx);
+                        if ((outputContent.mass >= this.ConduitMassMax)
+                            || (!inputContent.element.Equals(outputContent.element))
+                            //|| (inputContent.diseaseIdx != outputContent.diseaseIdx)
+                            )
+                            return;
+
+                        //if (inputContent.diseaseIdx == outputContent.diseaseIdx)
+                        //    diseaseCount += outputContent.diseaseCount;
+
+                        if ((inputContent.mass + outputContent.mass) > this.ConduitMassMax)
+                        {
+                            //elementMovedWhole = false;
+                            massMove = this.ConduitMassMax - outputContent.mass;
+                        }
+
+                        if (diseaseCount > 0)
+                        {
+                            var ratioMove = massMove / inputContent.mass;
+                            diseaseCount = (int)(diseaseCount * ratioMove);
+                        }
+
+                        //FlowMgr.RemoveElement(outputCellIdx, outputContent.mass);
                     }
 
-                    if (diseaseCount > 0)
-                    {
-                        var ratioMove = massMove / inputContent.mass;
-                        diseaseCount = (int)(diseaseCount * ratioMove);
-                    }
-
-                    //FlowMgr.RemoveElement(outputCellIdx, outputContent.mass);
+                    float elementMoved = FlowMgr.AddElement(outputCellIdx, inputContent.element, massMove, inputContent.temperature, inputContent.diseaseIdx, diseaseCount);
+                    if (elementMoved > 0f)
+                        FlowMgr.RemoveElement(this.InputCell, elementMoved);
                 }
-
-                float elementMoved = FlowMgr.AddElement(outputCellIdx, inputContent.element, massMove, inputContent.temperature, inputContent.diseaseIdx, diseaseCount);
-                if (elementMoved > 0f)
-                    FlowMgr.RemoveElement(this.InputCell, elementMoved);
             }
 
-            //this.Operation.SetActive(setActive, false);
+            this.Operation.SetActive(setActive, false);
         }
 
-        //void UpdateConduitBlockedStatus()
-        //{
-        //    bool outputConduit2IsEmpty = FlowMgr.IsConduitEmpty(this.OutputCell2);
-        //    bool blockageDetected = (this.ConduitBlockedStatusItemGuid != Guid.Empty);
-        //    if (outputConduit2IsEmpty != blockageDetected)
-        //        return;
-
-        //    StatusItem blockedMultiples = Db.Get().BuildingStatusItems.ConduitBlockedMultiples;
-        //    this.ConduitBlockedStatusItemGuid = this.Selectable.ToggleStatusItem(blockedMultiples, this.ConduitBlockedStatusItemGuid, !outputConduit2IsEmpty);
-        //}
-
-        //void UpdateBuildingStatus()
+        //void UpdateConduitExistsStatus()
         //{
         //    bool outputCell2IsConnected = RequireOutputs.IsConnected(this.OutputCell2, this.ConduitType);
         //    StatusItem outputConduit2Status;
 
         //    var buildingStatus = Db.Get().BuildingStatusItems;
-        //    switch (this.OutputPort2Info.conduitType)
+        //    switch (this.ConduitType)
         //    {
         //        case ConduitType.Gas:
         //            outputConduit2Status = buildingStatus.NeedGasOut;
@@ -210,13 +232,24 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         //        default:
         //            throw new ArgumentOutOfRangeException();
         //    }
-        //    bool outputConduit2StatusIsEmpty = this.OutputConduit2StatusGuid != Guid.Empty;
+
+        //    bool outputConduit2StatusIsEmpty = (this.OutputConduit2StatusGuid != Guid.Empty);
         //    if (outputCell2IsConnected != outputConduit2StatusIsEmpty)
-        //    {
         //        return;
-        //    }
+
         //    this.OutputConduit2StatusGuid = this.Selectable.ToggleStatusItem(outputConduit2Status, this.OutputConduit2StatusGuid, !outputCell2IsConnected);
         //}
+
+        void UpdateConduitBlockedStatus()
+        {
+            bool outputConduit2IsEmpty = FlowMgr.IsConduitEmpty(this.OutputCell2);
+            bool blockageDetected = (this.ConduitBlockedStatusItemGuid != Guid.Empty);
+            if (outputConduit2IsEmpty != blockageDetected)
+                return;
+
+            StatusItem blockedMultiples = Db.Get().BuildingStatusItems.ConduitBlockedMultiples;
+            this.ConduitBlockedStatusItemGuid = this.Selectable.ToggleStatusItem(blockedMultiples, this.ConduitBlockedStatusItemGuid, !outputConduit2IsEmpty);
+        }
 
         void Validate()
         {
@@ -247,5 +280,31 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         }
 
         #endregion
+
+        //void InitializeStatusItems()
+        //{
+        //    if (TemperatureFilterProcess.filterStatusItem != null)
+        //        return;
+
+        //    TemperatureFilterProcess.filterStatusItem.conditionalOverlayCallback = new Func<HashedString, object, bool>(this.ShowInUtilityOverlay);
+        //}
+
+        bool ShowInUtilityOverlay(HashedString mode, object data)
+        {
+            bool flag = false;
+            switch (((TemperatureFilterProcess)data).ConduitType)
+            {
+                case ConduitType.Gas:
+                    //flag = HashedString.op_Equality(mode, OverlayModes.GasConduits.ID);
+                    flag = (mode == OverlayModes.GasConduits.ID);
+                    break;
+                case ConduitType.Liquid:
+                    //flag = HashedString.op_Equality(mode, OverlayModes.LiquidConduits.ID);
+                    flag = (mode == OverlayModes.LiquidConduits.ID);
+                    break;
+            }
+            return flag;
+        }
+
     }
 }
