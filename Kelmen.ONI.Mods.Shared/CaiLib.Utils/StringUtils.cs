@@ -1,6 +1,6 @@
 ﻿using STRINGS;
 
-namespace CaiLib.Utils
+namespace Kelmen.ONI.Mods.Shared.CaiLib.Utils
 {
     public static class StringUtils
     {

@@ -1,10 +1,9 @@
 ﻿using KSerialization;
-using TUNING;
 using UnityEngine;
 
-using CaiLib.Utils;
-using static CaiLib.Utils.BuildingUtils;
-using static CaiLib.Utils.StringUtils;
+using Kelmen.ONI.Mods.Shared.CaiLib.Utils;
+using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.BuildingUtils;
+using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.StringUtils;
 
 namespace Kelmen.ONI.Mods.ConduitFilters.EfficientElementFilters
 {

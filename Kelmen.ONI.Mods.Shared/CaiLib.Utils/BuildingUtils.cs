@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using TUNING;
 
-using KelmenUtils = Kelmen.ONI.Mods.ConduitFilters.Utils;
+using KelmenUtils = Kelmen.ONI.Mods.Shared.Utils;
 
-namespace CaiLib.Utils
+namespace Kelmen.ONI.Mods.Shared.CaiLib.Utils
 {
 	public static class BuildingUtils
 	{

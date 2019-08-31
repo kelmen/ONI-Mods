@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kelmen.ONI.Mods.ConduitFilters
+namespace Kelmen.ONI.Mods.Shared
 {
     internal static class Utils
     {

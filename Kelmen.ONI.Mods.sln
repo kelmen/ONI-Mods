@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.ConduitFilters", "Kelmen.ONI.Mods.ConduitFilters\Kelmen.ONI.Mods.ConduitFilters.csproj", "{0DE50496-2755-48D0-82EB-A73B64E97B08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.ValvesEx", "Kelmen.ONI.Mods.ValvesEx\Kelmen.ONI.Mods.ValvesEx.csproj", "{E49F3CDF-8551-4392-9108-01E250D96F3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.Shared", "Kelmen.ONI.Mods.Shared\Kelmen.ONI.Mods.Shared.csproj", "{35076C73-E2BC-42B3-A626-DF042C0747AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{0DE50496-2755-48D0-82EB-A73B64E97B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DE50496-2755-48D0-82EB-A73B64E97B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DE50496-2755-48D0-82EB-A73B64E97B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E49F3CDF-8551-4392-9108-01E250D96F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49F3CDF-8551-4392-9108-01E250D96F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E49F3CDF-8551-4392-9108-01E250D96F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E49F3CDF-8551-4392-9108-01E250D96F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
