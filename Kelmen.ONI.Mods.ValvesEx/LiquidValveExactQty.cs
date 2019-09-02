@@ -31,16 +31,17 @@ namespace Kelmen.ONI.Mods.ValvesEx
             BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
 
             var process = go.AddOrGet<ValveProcess>();
-            process.conduitType = ConduitType.Liquid;
-            process.maxFlow = 10f;
-            process.animFlowRanges = new ValveBase.AnimRangeInfo[3]
-            {
-              new ValveBase.AnimRangeInfo(3f, "lo"),
-              new ValveBase.AnimRangeInfo(7f, "med"),
-              new ValveBase.AnimRangeInfo(10f, "hi")
-            };
+            process.ConduitType = ConduitType.Liquid;
+            //process.animFlowRanges = new ValveBase.AnimRangeInfo[3]
+            //{
+            //  new ValveBase.AnimRangeInfo(3f, "lo"),
+            //  new ValveBase.AnimRangeInfo(7f, "med"),
+            //  new ValveBase.AnimRangeInfo(10f, "hi")
+            //};
 
-            go.AddOrGet<Valve>();
+            //go.AddOrGet<ValveData>();
+            //var data = go.AddOrGet<ValveData>();
+            //data.Process = process;
         }
 
         public override void DoPostConfigureComplete(GameObject go)

@@ -81,6 +81,7 @@
     <Compile Include="LiquidValveExactQty.cs" />
     <Compile Include="LiquidValveExactQtyMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValveData.cs" />
     <Compile Include="ValveProcess.cs" />
   </ItemGroup>
   <ItemGroup>
