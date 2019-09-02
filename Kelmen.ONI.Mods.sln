@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.ValvesEx", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.Shared", "Kelmen.ONI.Mods.Shared\Kelmen.ONI.Mods.Shared.csproj", "{35076C73-E2BC-42B3-A626-DF042C0747AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kelmen.ONI.Mods.Power.Transformers", "Kelmen.ONI.Mods.Power.Transformers\Kelmen.ONI.Mods.Power.Transformers.csproj", "{A62932F8-5F91-4628-B9B9-4BA986EBD0C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35076C73-E2BC-42B3-A626-DF042C0747AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A62932F8-5F91-4628-B9B9-4BA986EBD0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A62932F8-5F91-4628-B9B9-4BA986EBD0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A62932F8-5F91-4628-B9B9-4BA986EBD0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A62932F8-5F91-4628-B9B9-4BA986EBD0C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
