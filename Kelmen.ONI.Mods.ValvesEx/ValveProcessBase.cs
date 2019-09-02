@@ -1,18 +1,13 @@
 ﻿using KSerialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Kelmen.ONI.Mods.ValvesEx
 {
-    [SerializationConfig(MemberSerialization.OptIn)]
-    public partial class ValveProcess : KMonoBehaviour, ISaveLoadable
+    public abstract partial class ValveProcessBase : KMonoBehaviour
     {
-        [SerializeField]
-        [Serialize]
-        public ConduitType ConduitType { get; set; }
+        public abstract ConduitType ConduitType { get; }
+
+        public abstract ValveBase.AnimRangeInfo[] animFlowRanges { get; }
 
         ConduitFlow _FlowMgr = null;
         ConduitFlow FlowMgr
@@ -30,10 +25,13 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             get
             {
-                switch(this.ConduitType)
+                switch (this.ConduitType)
                 {
-                    case ConduitType.Liquid:return 10;
-                    case ConduitType.Gas: return 1;
+                    case ConduitType.Liquid:
+                        return 10;
+
+                    case ConduitType.Gas:
+                        return 1;
                 }
 
                 return 0;
@@ -118,10 +116,10 @@ namespace Kelmen.ONI.Mods.ValvesEx
             this.DesiredFlow = kiloGram;
         }
 
-        public void ChangeFlowByG(float gram)
-        {
-            ChangeFlowByKG(gram * 1000f);
-        }
+        //public void ChangeFlowByG(float gram)
+        //{
+        //    ChangeFlowByKG(gram / 1000f);
+        //}
 
         protected HandleVector<int>.Handle FlowAccumulator;
         int curFlowIdx;
@@ -143,30 +141,13 @@ namespace Kelmen.ONI.Mods.ValvesEx
                         this.curFlowIdx = index;
                         //this.controller.Play(this.animFlowRanges[index].animName, (double)averageRate > 0.0 ? (KAnim.PlayMode)0 : (KAnim.PlayMode)1, 1f, 0.0f);
                         this.controller.Play(this.animFlowRanges[index].animName, averageRate > 0 ? KAnim.PlayMode.Loop : KAnim.PlayMode.Once);
-                        break; 
+                        break;
                     }
                 }
             }
             else
                 this.controller.Play("off", KAnim.PlayMode.Once);
         }
-
-        [Serializable]
-        public struct AnimRangeInfo
-        {
-            public float minFlow;
-            public string animName;
-
-            public AnimRangeInfo(float min_flow, string anim_name)
-            {
-                this.minFlow = min_flow;
-                this.animName = anim_name;
-            }
-        }
-
-        [SerializeField]
-        public ValveBase.AnimRangeInfo[] animFlowRanges;
-
 
     }
 }

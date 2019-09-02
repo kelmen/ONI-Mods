@@ -78,11 +78,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GasValveExactQty.cs" />
+    <Compile Include="GasValveExactQtyMod.cs" />
+    <Compile Include="GasValveProcess.cs" />
     <Compile Include="LiquidValveExactQty.cs" />
     <Compile Include="LiquidValveExactQtyMod.cs" />
+    <Compile Include="LiquidValveProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValveData.cs" />
-    <Compile Include="ValveProcess.cs" />
+    <Compile Include="ValveDataBase.cs" />
+    <Compile Include="ValveProcessBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kelmen.ONI.Mods.Shared\Kelmen.ONI.Mods.Shared.csproj">

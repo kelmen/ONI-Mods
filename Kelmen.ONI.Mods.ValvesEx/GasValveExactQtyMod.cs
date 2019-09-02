@@ -2,7 +2,7 @@
 
 namespace Kelmen.ONI.Mods.ValvesEx
 {
-    public class LiquidValveExactQtyMod
+    public class GasValveExactQtyMod
     {
         [HarmonyPatch(typeof(GeneratedBuildings))]
         [HarmonyPatch(nameof(GeneratedBuildings.LoadGeneratedBuildings))]
@@ -10,8 +10,8 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                LiquidValveExactQty.SetDescriptions();
-                LiquidValveExactQty.SetMenu();
+                GasValveExactQty.SetDescriptions();
+                GasValveExactQty.SetMenu();
             }
         }
 
@@ -21,24 +21,25 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                LiquidValveExactQty.SetTechTree();
+                GasValveExactQty.SetTechTree();
             }
         }
 
         [HarmonyPatch(typeof(BuildingComplete))]
         [HarmonyPatch("OnSpawn")]
-        public static class ChangeLiquidValveExactQtyColor
+        public static class ChangeGasValveExactQtyColor
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (LiquidValveExactQty.ID + "Complete")) == 0)
+                if (string.Compare(__instance.name, (GasValveExactQty.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;
 
-                    kanim.TintColour = LiquidValveExactQty.ChangeColor();
+                    kanim.TintColour = GasValveExactQty.ChangeColor();
                 }
             }
         }
+
     }
 }

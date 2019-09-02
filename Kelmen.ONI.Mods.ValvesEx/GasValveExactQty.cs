@@ -8,13 +8,13 @@ using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.StringUtils;
 namespace Kelmen.ONI.Mods.ValvesEx
 {
     [SerializationConfig(MemberSerialization.OptIn)]
-    public class LiquidValveExactQty : LiquidValveConfig
+    public class GasValveExactQty : GasValveConfig
     {
-        new public const string ID = "Kelmen-LiquidValveExactQty";
+        new public const string ID = "Kelmen-GasValveExactQty";
 
-        public const string DisplayName = "Exact Quantity Liquid Valve";
+        public const string DisplayName = "Exact Quantity Gas Valve";
         public const string Description = "Set the amount to flow through. The amount will be reduced by how many been flow through, till it reached 0 to stop the flow.";
-        public const string Effect = "Allows exact amount of liquid flow through.";
+        public const string Effect = "Allows exact amount of gas flow through.";
 
         public override BuildingDef CreateBuildingDef()
         {
@@ -30,7 +30,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
             GeneratedBuildings.MakeBuildingAlwaysOperational(go);
             BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
 
-            var process = go.AddOrGet<LiquidValveProcess>();
+            var process = go.AddOrGet<GasValveProcess>();
         }
 
         public override void DoPostConfigureComplete(GameObject go)
@@ -49,7 +49,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         public static void SetMenu()
         {
-            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Plumbing, ID);
+            AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Ventilation, ID);
         }
 
         public static void SetTechTree()

@@ -1,12 +1,11 @@
-﻿using KSerialization;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
 
 namespace Kelmen.ONI.Mods.ValvesEx
 {
-    //[SerializationConfig(MemberSerialization.OptIn)]
-    //public class ValveData : SideScreenContent
-    public partial class ValveProcess : ISingleSliderControl
+    public abstract partial class ValveProcessBase : ISingleSliderControl
     {
         float ValeDataValue
         {
@@ -22,7 +21,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         public string SliderTitleKey => string.Format("STRINGS.UI.UISIDESCREENS.{0}.TITLE", GetSliderTooltipKey(0));
 
-        public string SliderUnits => GameUtil.MetricMassFormat.Gram.ToString();
+        public string SliderUnits => GameUtil.MetricMassFormat.Kilogram.ToString();
 
         public float GetSliderMax(int index)
         {
@@ -56,9 +55,10 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         public int SliderDecimalPlaces(int index)
         {
-            return 0;
+            return 3;
         }
 
         #endregion
+
     }
 }
