@@ -32,7 +32,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
             var process = go.AddOrGet<ValveProcess>();
             process.conduitType = ConduitType.Liquid;
-            process.MaxFlow = 10f;
+            process.maxFlow = 10f;
             process.animFlowRanges = new ValveBase.AnimRangeInfo[3]
             {
               new ValveBase.AnimRangeInfo(3f, "lo"),
@@ -40,7 +40,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
               new ValveBase.AnimRangeInfo(10f, "hi")
             };
 
-            go.AddOrGet<ValveData>();
+            go.AddOrGet<Valve>();
         }
 
         public override void DoPostConfigureComplete(GameObject go)
