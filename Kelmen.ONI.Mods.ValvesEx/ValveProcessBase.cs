@@ -92,16 +92,16 @@ namespace Kelmen.ONI.Mods.ValvesEx
             {
                 ConduitFlow.Conduit conduit = FlowMgr.GetConduit(this.InputCell);
                 ConduitFlow.ConduitContents contents = conduit.GetContents(FlowMgr);
-                float massMove = Mathf.Min(contents.mass, this.DesiredFlow);
-                if (massMove > 0f)
+                float massSrc = Mathf.Min(contents.mass, this.DesiredFlow);
+                if (massSrc > 0)
                 {
-                    int disease_count = (int)((massMove / contents.mass) * contents.diseaseCount);
-                    FlowMgr.AddElement(this.OutputCell, contents.element, massMove, contents.temperature, contents.diseaseIdx, disease_count);
-                    FlowMgr.RemoveElement(this.InputCell, massMove);
+                    int disease_count = (int)((massSrc / contents.mass) * contents.diseaseCount);
+                    var massMoved = FlowMgr.AddElement(this.OutputCell, contents.element, massSrc, contents.temperature, contents.diseaseIdx, disease_count);
+                    Game.Instance.accumulators.Accumulate(this.FlowAccumulator, massMoved);
+                    if (massMoved > 0)
+                        FlowMgr.RemoveElement(this.InputCell, massMoved);
 
-                    Game.Instance.accumulators.Accumulate(this.FlowAccumulator, massMove);
-
-                    DesiredFlow -= massMove;
+                    DesiredFlow -= massMoved;
                 }
             }
 
