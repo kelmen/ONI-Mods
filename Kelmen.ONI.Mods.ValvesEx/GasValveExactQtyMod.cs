@@ -10,8 +10,11 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                GasValveExactQty.SetDescriptions();
-                GasValveExactQty.SetMenu();
+                GasValveExactQtyByG.SetDescriptions();
+                GasValveExactQtyByG.SetMenu();
+
+                //GasValveExactQtyByKG.SetDescriptions();
+                //GasValveExactQtyByKG.SetMenu();
             }
         }
 
@@ -21,7 +24,9 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                GasValveExactQty.SetTechTree();
+                GasValveExactQtyByG.SetTechTree();
+
+                //GasValveExactQtyByKG.SetTechTree();
             }
         }
 
@@ -31,13 +36,21 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (GasValveExactQty.ID + "Complete")) == 0)
+                if (string.Compare(__instance.name, (GasValveExactQtyByG.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;
 
-                    kanim.TintColour = GasValveExactQty.ChangeColor();
+                    kanim.TintColour = GasValveExactQtyByG.ChangeColor();
                 }
+
+                //if (string.Compare(__instance.name, (GasValveExactQtyByKG.ID + "Complete")) == 0)
+                //{
+                //    var kanim = __instance.GetComponent<KAnimControllerBase>();
+                //    if (kanim == null) return;
+
+                //    kanim.TintColour = GasValveExactQtyByKG.ChangeColor();
+                //}
             }
         }
 

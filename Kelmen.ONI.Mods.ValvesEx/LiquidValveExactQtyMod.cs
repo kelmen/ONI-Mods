@@ -10,8 +10,11 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                LiquidValveExactQty.SetDescriptions();
-                LiquidValveExactQty.SetMenu();
+                LiquidValveExactQtyByG.SetDescriptions();
+                LiquidValveExactQtyByG.SetMenu();
+
+                LiquidValveExactQtyByKG.SetDescriptions();
+                LiquidValveExactQtyByKG.SetMenu();
             }
         }
 
@@ -21,7 +24,9 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Prefix()
             {
-                LiquidValveExactQty.SetTechTree();
+                LiquidValveExactQtyByG.SetTechTree();
+
+                LiquidValveExactQtyByKG.SetTechTree();
             }
         }
 
@@ -31,12 +36,20 @@ namespace Kelmen.ONI.Mods.ValvesEx
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (LiquidValveExactQty.ID + "Complete")) == 0)
+                if (string.Compare(__instance.name, (LiquidValveExactQtyByG.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;
 
-                    kanim.TintColour = LiquidValveExactQty.ChangeColor();
+                    kanim.TintColour = LiquidValveExactQtyByG.ChangeColor();
+                }
+
+                if (string.Compare(__instance.name, (LiquidValveExactQtyByKG.ID + "Complete")) == 0)
+                {
+                    var kanim = __instance.GetComponent<KAnimControllerBase>();
+                    if (kanim == null) return;
+
+                    kanim.TintColour = LiquidValveExactQtyByKG.ChangeColor();
                 }
             }
         }

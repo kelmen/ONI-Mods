@@ -41,6 +41,9 @@ namespace Kelmen.ONI.Mods.ValvesEx
         public int InputCell { get; protected set; }
         public int OutputCell { get; protected set; }
 
+        /// <summary>
+        /// KG
+        /// </summary>
         [SerializeField]
         [Serialize]
         public float DesiredFlow { get; set; }
@@ -93,33 +96,17 @@ namespace Kelmen.ONI.Mods.ValvesEx
                 if (massMove > 0f)
                 {
                     int disease_count = (int)((massMove / contents.mass) * contents.diseaseCount);
-                    float num = FlowMgr.AddElement(this.OutputCell, contents.element, massMove, contents.temperature, contents.diseaseIdx, disease_count);
+                    FlowMgr.AddElement(this.OutputCell, contents.element, massMove, contents.temperature, contents.diseaseIdx, disease_count);
+                    FlowMgr.RemoveElement(this.InputCell, massMove);
 
-                    Game.Instance.accumulators.Accumulate(this.FlowAccumulator, num);
+                    Game.Instance.accumulators.Accumulate(this.FlowAccumulator, massMove);
 
-                    if ((double)num > 0.0)
-                        FlowMgr.RemoveElement(this.InputCell, num);
-
-                    float remain = DesiredFlow - massMove;
-                    ChangeFlowByKG(remain);
+                    DesiredFlow -= massMove;
                 }
-
             }
 
             this.UpdateAnim();
         }
-
-        public void ChangeFlowByKG(float kiloGram)
-        {
-            if (kiloGram > MaxFlow) return;
-
-            this.DesiredFlow = kiloGram;
-        }
-
-        //public void ChangeFlowByG(float gram)
-        //{
-        //    ChangeFlowByKG(gram / 1000f);
-        //}
 
         protected HandleVector<int>.Handle FlowAccumulator;
         int curFlowIdx;

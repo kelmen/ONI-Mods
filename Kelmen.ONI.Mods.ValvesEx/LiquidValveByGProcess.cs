@@ -3,11 +3,13 @@
 namespace Kelmen.ONI.Mods.ValvesEx
 {
     [SerializationConfig(MemberSerialization.OptIn)]
-    public class LiquidValveProcess : ValveProcessBase
+    public class LiquidValveByGProcess : ValveProcessBase
     {
         public override ConduitType ConduitType => ConduitType.Liquid;
 
-        public override ValveBase.AnimRangeInfo[] animFlowRanges => 
+        public override GameUtil.MetricMassFormat Metric => GameUtil.MetricMassFormat.Gram;
+
+        public override ValveBase.AnimRangeInfo[] animFlowRanges =>
             new ValveBase.AnimRangeInfo[3]
             {
               new ValveBase.AnimRangeInfo(3f, "lo"),

@@ -4,23 +4,25 @@ using UnityEngine;
 using Kelmen.ONI.Mods.Shared.CaiLib.Utils;
 using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.BuildingUtils;
 using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.StringUtils;
+using TUNING;
 
 namespace Kelmen.ONI.Mods.ValvesEx
 {
     [SerializationConfig(MemberSerialization.OptIn)]
-    public class LiquidValveExactQty : LiquidValveConfig
+    public class LiquidValveExactQtyByKG : LiquidValveExactQtyByG
     {
-        new public const string ID = "Kelmen-LiquidValveExactQty";
+        new public const string ID = "Kelmen-LiquidValveExactQtyByKG";
 
-        public const string DisplayName = "Exact Quantity Liquid Valve";
-        public const string Description = "Set the amount to flow through. The amount will be reduced by how many been flow through, till it reached 0 to stop the flow.";
-        public const string Effect = "Allows exact amount of liquid flow through.";
+        new public const string DisplayName = "Exact Quantity (KG) Liquid Valve";
+        
+        new public const string Effect = "Allows exact amount of liquid flow through by KiloGram.";
 
         public override BuildingDef CreateBuildingDef()
         {
             var buildingDef = base.CreateBuildingDef();
 
             buildingDef.PrefabID = ID;
+            buildingDef.InitDef();
 
             return buildingDef;
         }
@@ -30,34 +32,24 @@ namespace Kelmen.ONI.Mods.ValvesEx
             GeneratedBuildings.MakeBuildingAlwaysOperational(go);
             BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
 
-            var process = go.AddOrGet<LiquidValveProcess>();
+            go.AddOrGet<LiquidValveByKGProcess>();
         }
 
-        public override void DoPostConfigureComplete(GameObject go)
-        {
-            Object.DestroyImmediate(go.GetComponent<RequireInputs>());
-            Object.DestroyImmediate(go.GetComponent<ConduitConsumer>());
-            Object.DestroyImmediate(go.GetComponent<ConduitDispenser>());
-
-            go.AddOrGet<BuildingComplete>().isManuallyOperated = false;
-        }
-
-        public static void SetDescriptions()
+        public static new void SetDescriptions()
         {
             AddBuildingStrings(ID, DisplayName, Description, Effect);
         }
-
-        public static void SetMenu()
+        public static new void SetMenu()
         {
             AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Plumbing, ID);
         }
 
-        public static void SetTechTree()
+        public static new void SetTechTree()
         {
             AddBuildingToTechnology(GameStrings.Technology.Gases.PressureManagement, ID);
         }
 
-        public static Color32 ChangeColor()
+        public static new Color32 ChangeColor()
         {
             return new Color32(255, 255, 0, 255);
         }

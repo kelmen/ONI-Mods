@@ -7,10 +7,38 @@ namespace Kelmen.ONI.Mods.ValvesEx
 {
     public abstract partial class ValveProcessBase : ISingleSliderControl
     {
+        public abstract GameUtil.MetricMassFormat Metric { get; }
+
         float ValeDataValue
         {
-            get { return this.DesiredFlow; }
-            set { this.DesiredFlow = value; }
+            get { return this.DesiredFlow * MetricConvertion; }
+            set { this.DesiredFlow = value / MetricConvertion; }
+        }
+
+        float? _MetricConvertion = null;
+        float MetricConvertion
+        {
+            get
+            {
+                if (_MetricConvertion == null)
+                {
+                    switch (Metric)
+                    {
+                        case GameUtil.MetricMassFormat.Kilogram:
+                            _MetricConvertion = 1;
+                            break;
+
+                        case GameUtil.MetricMassFormat.Gram:
+                            _MetricConvertion = 1000;
+                            break;
+
+                        default:
+                            _MetricConvertion = 0;
+                            break;
+                    }
+                }
+                return _MetricConvertion.Value;
+            }
         }
 
         void DataOnSpawn()
@@ -21,16 +49,16 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         public string SliderTitleKey => string.Format("STRINGS.UI.UISIDESCREENS.{0}.TITLE", GetSliderTooltipKey(0));
 
-        public string SliderUnits => GameUtil.MetricMassFormat.Kilogram.ToString();
+        public string SliderUnits => " " + Metric.ToString();
 
         public float GetSliderMax(int index)
         {
-            return this.MaxFlow;
+            return 1000;
         }
 
         public float GetSliderMin(int index)
         {
-            return 0f;
+            return 0;
         }
 
         public string GetSliderTooltip()
