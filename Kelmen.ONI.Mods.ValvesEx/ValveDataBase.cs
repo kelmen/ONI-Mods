@@ -47,7 +47,8 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         #region ISingleSliderControl
 
-        public string SliderTitleKey => string.Format("STRINGS.UI.UISIDESCREENS.{0}.TITLE", GetSliderTooltipKey(0));
+        public string SliderTitleKey => //string.Format("STRINGS.UI.UISIDESCREENS.{0}.TITLE", GetSliderTooltipKey(0));
+            "Eaxct Quantity Valve";
 
         public string SliderUnits => " " + Metric.ToString();
 
@@ -68,7 +69,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
 
         public string GetSliderTooltipKey(int index)
         {
-            return "ExactValveDataSliderTooltipKey";
+            return "Kelmen-ExactValveDataSliderTooltipKey";
         }
 
         public float GetSliderValue(int index)

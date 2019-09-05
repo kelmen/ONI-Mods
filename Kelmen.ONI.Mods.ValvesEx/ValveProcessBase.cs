@@ -99,9 +99,11 @@ namespace Kelmen.ONI.Mods.ValvesEx
                     var massMoved = FlowMgr.AddElement(this.OutputCell, contents.element, massSrc, contents.temperature, contents.diseaseIdx, disease_count);
                     Game.Instance.accumulators.Accumulate(this.FlowAccumulator, massMoved);
                     if (massMoved > 0)
+                    {
                         FlowMgr.RemoveElement(this.InputCell, massMoved);
 
-                    DesiredFlow -= massMoved;
+                        DesiredFlow -= massMoved;
+                    }
                 }
             }
 
