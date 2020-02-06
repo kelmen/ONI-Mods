@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Kelmen.ONI.Mods.ConduitFilters</RootNamespace>
     <AssemblyName>Kelmen.ONI.Mods.ConduitFilters</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <AssemblyVersion>0.3.19236.1137</AssemblyVersion>
@@ -24,6 +24,7 @@
     <AssemblyVersionSettings>None.None.None.None</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.None</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.None.None</AssemblyInfoVersionSettings>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

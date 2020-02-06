@@ -31,7 +31,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
                 hitpoints: 30,
                 construction_time: 10,
                 construction_mass: BUILDINGS.CONSTRUCTION_MASS_KG.TIER3,
-                construction_materials: MATERIALS.RAW_METALS,
+                construction_materials: MATERIALS.REFINED_METALS,
                 melting_point: 1600,
                 build_location_rule: BuildLocationRule.Anywhere,
                 decor: BUILDINGS.DECOR.PENALTY.TIER0,

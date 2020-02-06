@@ -12,9 +12,9 @@ namespace Kelmen.ONI.Mods.ValvesEx
         public override ValveBase.AnimRangeInfo[] animFlowRanges =>
             new ValveBase.AnimRangeInfo[3]
             {
-              new ValveBase.AnimRangeInfo(3f, "lo"),
-              new ValveBase.AnimRangeInfo(7f, "med"),
-              new ValveBase.AnimRangeInfo(10f, "hi")
+              new ValveBase.AnimRangeInfo(2.5f, "lo"),
+              new ValveBase.AnimRangeInfo(5f, "med"),
+              new ValveBase.AnimRangeInfo(7.5f, "hi")
             };
 
     }

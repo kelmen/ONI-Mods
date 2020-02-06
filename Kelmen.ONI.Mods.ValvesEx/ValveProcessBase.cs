@@ -1,5 +1,6 @@
 ﻿using KSerialization;
 using UnityEngine;
+using System.Linq;
 
 namespace Kelmen.ONI.Mods.ValvesEx
 {
@@ -51,11 +52,11 @@ namespace Kelmen.ONI.Mods.ValvesEx
         //[MyCmpReq]
         //ValveData ValveData = null;
 
+        protected float MassMoved = 0;
+
         protected override void OnPrefabInit()
         {
             base.OnPrefabInit();
-
-            this.FlowAccumulator = Game.Instance.accumulators.Add("Flow", (KMonoBehaviour)this);
         }
 
         protected override void OnSpawn()
@@ -77,9 +78,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
         protected override void OnCleanUp()
         {
             FlowMgr.RemoveConduitUpdater(OnConduitUpdate);
-
-            Game.Instance.accumulators.Remove(this.FlowAccumulator);
-
+            MassMoved = 0;
             base.OnCleanUp();
         }
 
@@ -97,7 +96,7 @@ namespace Kelmen.ONI.Mods.ValvesEx
                 {
                     int disease_count = (int)((massSrc / contents.mass) * contents.diseaseCount);
                     var massMoved = FlowMgr.AddElement(this.OutputCell, contents.element, massSrc, contents.temperature, contents.diseaseIdx, disease_count);
-                    Game.Instance.accumulators.Accumulate(this.FlowAccumulator, massMoved);
+                    MassMoved += massMoved;
                     if (massMoved > 0)
                     {
                         FlowMgr.RemoveElement(this.InputCell, massMoved);
@@ -110,32 +109,25 @@ namespace Kelmen.ONI.Mods.ValvesEx
             this.UpdateAnim();
         }
 
-        protected HandleVector<int>.Handle FlowAccumulator;
-        int curFlowIdx;
-
         [MyCmpGet]
         protected KBatchedAnimController controller;
 
         public virtual void UpdateAnim()
         {
-            float averageRate = Game.Instance.accumulators.GetAverageRate(this.FlowAccumulator);
-            if ((double)averageRate > 0.0)
+            if (MassMoved > 0)
             {
-                for (int index = 0; index < this.animFlowRanges.Length; ++index)
+                foreach(var anim in animFlowRanges.Reverse())
                 {
-                    if ((double)averageRate <= (double)this.animFlowRanges[index].minFlow)
+                    if (MassMoved > anim.minFlow)
                     {
-                        if (this.curFlowIdx == index)
-                            break;
-                        this.curFlowIdx = index;
-                        //this.controller.Play(this.animFlowRanges[index].animName, (double)averageRate > 0.0 ? (KAnim.PlayMode)0 : (KAnim.PlayMode)1, 1f, 0.0f);
-                        this.controller.Play(this.animFlowRanges[index].animName, averageRate > 0 ? KAnim.PlayMode.Loop : KAnim.PlayMode.Once);
-                        break;
+                        MassMoved = 0;
+                        this.controller.Play(anim.animName, KAnim.PlayMode.Loop);
+                        return;
                     }
                 }
             }
-            else
-                this.controller.Play("off", KAnim.PlayMode.Once);
+            
+            this.controller.Play("off", KAnim.PlayMode.Once);
         }
 
     }

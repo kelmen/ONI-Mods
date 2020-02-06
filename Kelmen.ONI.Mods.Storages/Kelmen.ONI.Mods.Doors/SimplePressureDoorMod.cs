@@ -1,8 +1,8 @@
 ﻿using Harmony;
 
-namespace Kelmen.ONI.Mods.StorageBins
+namespace Kelmen.ONI.Mods.Doors
 {
-    public class EfficientSmartStorageBinMod
+    public class SimplePressureDoorMod
     {
         [HarmonyPatch(typeof(GeneratedBuildings))]
         [HarmonyPatch(nameof(GeneratedBuildings.LoadGeneratedBuildings))]
@@ -10,8 +10,8 @@ namespace Kelmen.ONI.Mods.StorageBins
         {
             public static void Prefix()
             {
-                EfficientSmartStorageBin.SetDescriptions();
-                EfficientSmartStorageBin.SetMenu();
+                SimplePressureDoor.SetDescriptions();
+                SimplePressureDoor.SetMenu();
             }
         }
 
@@ -21,25 +21,24 @@ namespace Kelmen.ONI.Mods.StorageBins
         {
             public static void Prefix()
             {
-                EfficientSmartStorageBin.SetTechTree();
+                SimplePressureDoor.SetTechTree();
             }
         }
 
         [HarmonyPatch(typeof(BuildingComplete))]
         [HarmonyPatch("OnSpawn")]
-        public static class ChangeEfficientGasFilterColor
+        public static class ChangeLiquidTemperatureFilterColor
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (EfficientSmartStorageBin.ID + "Complete")) == 0)
+                if (string.Compare(__instance.name, (SimplePressureDoor.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;
 
-                    kanim.TintColour = EfficientSmartStorageBin.ChangeColor();
+                    kanim.TintColour = SimplePressureDoor.ChangeColor();
                 }
             }
         }
-
     }
 }

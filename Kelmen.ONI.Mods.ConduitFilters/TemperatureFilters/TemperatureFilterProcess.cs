@@ -86,6 +86,9 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
                         case ConduitType.Liquid:
                             _ConduitMassMax = 10;
                             break;
+                        case ConduitType.Solid:
+                            _ConduitMassMax = 20; // Conveyor Rail
+                            break;
                         default:
                             _ConduitMassMax = 0;
                             break;
@@ -289,22 +292,25 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
         //    TemperatureFilterProcess.filterStatusItem.conditionalOverlayCallback = new Func<HashedString, object, bool>(this.ShowInUtilityOverlay);
         //}
 
-        bool ShowInUtilityOverlay(HashedString mode, object data)
-        {
-            bool flag = false;
-            switch (((TemperatureFilterProcess)data).ConduitType)
-            {
-                case ConduitType.Gas:
-                    //flag = HashedString.op_Equality(mode, OverlayModes.GasConduits.ID);
-                    flag = (mode == OverlayModes.GasConduits.ID);
-                    break;
-                case ConduitType.Liquid:
-                    //flag = HashedString.op_Equality(mode, OverlayModes.LiquidConduits.ID);
-                    flag = (mode == OverlayModes.LiquidConduits.ID);
-                    break;
-            }
-            return flag;
-        }
+        //bool ShowInUtilityOverlay(HashedString mode, object data)
+        //{
+        //    bool flag = false;
+        //    switch (((TemperatureFilterProcess)data).ConduitType)
+        //    {
+        //        case ConduitType.Gas:
+        //            //flag = HashedString.op_Equality(mode, OverlayModes.GasConduits.ID);
+        //            flag = (mode == OverlayModes.GasConduits.ID);
+        //            break;
+        //        case ConduitType.Liquid:
+        //            //flag = HashedString.op_Equality(mode, OverlayModes.LiquidConduits.ID);
+        //            flag = (mode == OverlayModes.LiquidConduits.ID);
+        //            break;
+        //        case ConduitType.Solid:
+        //            flag = (mode == OverlayModes.SolidConveyor.ID);
+        //            break;
+        //    }
+        //    return flag;
+        //}
 
     }
 }

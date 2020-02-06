@@ -1,4 +1,5 @@
 ﻿using KSerialization;
+using TUNING;
 using UnityEngine;
 
 using Kelmen.ONI.Mods.Shared.CaiLib.Utils;
@@ -22,74 +23,20 @@ namespace Kelmen.ONI.Mods.ConduitFilters.EfficientElementFilters
 
         public override BuildingDef CreateBuildingDef()
         {
-            //var buildingDef = BuildingTemplates.CreateBuildingDef(
-            //    id: Id,
-            //    width: 3,
-            //    height: 1,
-            //    anim: "filter_liquid_kanim",
-            //    hitpoints: 30,
-            //    construction_time: 10,
-            //    construction_mass: BUILDINGS.CONSTRUCTION_MASS_KG.TIER3,
-            //    construction_materials: MATERIALS.RAW_METALS,
-            //    melting_point: 1600,
-            //    build_location_rule: BuildLocationRule.Anywhere,
-            //    decor: BUILDINGS.DECOR.PENALTY.TIER0,
-            //    noise: NOISE_POLLUTION.NOISY.TIER1);
-
             var buildingDef = base.CreateBuildingDef();
 
-            buildingDef.PrefabID = EfficientLiquidFilter.ID;
+            buildingDef.PrefabID = ID;
 
-            //buildingDef.RequiresPowerInput = true;
+            buildingDef.MaterialCategory = MATERIALS.REFINED_METALS;
             buildingDef.EnergyConsumptionWhenActive = 20; // 1 gas pipe element sensor + 2 gas shutfoff
             buildingDef.SelfHeatKilowattsWhenActive = 0;
-            //buildingDef.ExhaustKilowattsWhenActive = 0;
-            //buildingDef.InputConduitType = ConduitType.Liquid;
-            //buildingDef.OutputConduitType = ConduitType.Liquid;
-            //buildingDef.Floodable = false;
-            //buildingDef.ViewMode = OverlayModes.LiquidConduits.ID;
-            //buildingDef.AudioCategory = "Metal";
-            //buildingDef.UtilityInputOffset = new CellOffset(-1, 0);
-            //buildingDef.UtilityOutputOffset = new CellOffset(1, 0);
-            //buildingDef.PermittedRotations = PermittedRotations.R360;
 
             buildingDef.InitDef();
 
             return buildingDef;
         }
 
-        //public override void DoPostConfigureComplete(GameObject go)
-        //{
-        //    go.AddOrGetDef<PoweredActiveController.Def>().showWorkingStatus = true;
-        //}
-
         #endregion
-
-        //public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
-        //{
-        //    base.DoPostConfigurePreview(def, go);
-        //    this.AttachPort(go);
-        //}
-
-        //void AttachPort(GameObject go)
-        //{
-        //    go.AddComponent<ConduitSecondaryOutput>().portInfo = this.OutputPort2Info;
-        //}
-
-        //public override void DoPostConfigureUnderConstruction(GameObject go)
-        //{
-        //    base.DoPostConfigureUnderConstruction(go);
-        //    this.AttachPort(go);
-        //}
-
-        //public override void ConfigureBuildingTemplate(GameObject go, Tag prefab_tag)
-        //{
-        //    go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery);
-        //    go.AddOrGet<Structure>();
-
-        //    go.AddOrGet<ElementFilter>().portInfo = this.OutputPort2Info;
-        //    go.AddOrGet<Filterable>().filterElementState = Filterable.ElementState.Liquid;
-        //}
 
         public static void SetDescriptions()
         {

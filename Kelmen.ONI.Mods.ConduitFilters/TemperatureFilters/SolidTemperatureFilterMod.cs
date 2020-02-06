@@ -1,8 +1,8 @@
 ﻿using Harmony;
 
-namespace Kelmen.ONI.Mods.Storages
+namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 {
-    public class SimpleSolidDispenserMod
+    public class SolidTemperatureFilterMod
     {
         [HarmonyPatch(typeof(GeneratedBuildings))]
         [HarmonyPatch(nameof(GeneratedBuildings.LoadGeneratedBuildings))]
@@ -10,8 +10,8 @@ namespace Kelmen.ONI.Mods.Storages
         {
             public static void Prefix()
             {
-                SimpleSolidDispenser.SetDescriptions();
-                SimpleSolidDispenser.SetMenu();
+                SolidTemperatureFilter.SetDescriptions();
+                SolidTemperatureFilter.SetMenu();
             }
         }
 
@@ -21,25 +21,24 @@ namespace Kelmen.ONI.Mods.Storages
         {
             public static void Prefix()
             {
-                SimpleSolidDispenser.SetTechTree();
+                SolidTemperatureFilter.SetTechTree();
             }
         }
 
         [HarmonyPatch(typeof(BuildingComplete))]
         [HarmonyPatch("OnSpawn")]
-        public static class ChangeLiquidTemperatureFilterColor
+        public static class ChangeSolidTemperatureFilterColor
         {
             public static void Postfix(BuildingComplete __instance)
             {
-                if (string.Compare(__instance.name, (SimpleSolidDispenser.ID + "Complete")) == 0)
+                if (string.Compare(__instance.name, (SolidTemperatureFilter.ID + "Complete")) == 0)
                 {
                     var kanim = __instance.GetComponent<KAnimControllerBase>();
                     if (kanim == null) return;
 
-                    kanim.TintColour = SimpleSolidDispenser.ChangeColor();
+                    kanim.TintColour = SolidTemperatureFilter.ChangeColor();
                 }
             }
         }
-
     }
 }

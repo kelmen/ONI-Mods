@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Kelmen.ONI.Mods.Sensors</RootNamespace>
     <AssemblyName>Kelmen.ONI.Mods.Sensors</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>1.0.0.4</AssemblyVersion>
+    <AssemblyVersion>2020.2.6.1</AssemblyVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,12 +42,6 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>D:\Steam Games\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Steam Games\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>

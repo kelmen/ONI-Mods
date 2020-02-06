@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Kelmen.ONI.Mods.ValvesEx</RootNamespace>
     <AssemblyName>Kelmen.ONI.Mods.ValvesEx</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <AssemblyVersion>0.1.19245.0337</AssemblyVersion>
@@ -24,6 +24,7 @@
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
     <AssemblyFileVersionSettings>None.None.None.None</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.None.None</AssemblyInfoVersionSettings>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,12 +53,6 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>D:\Steam Games\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Steam Games\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Unity.TextMeshPro.dll</HintPath>

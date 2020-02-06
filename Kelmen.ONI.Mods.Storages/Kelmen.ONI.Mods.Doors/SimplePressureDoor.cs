@@ -1,31 +1,30 @@
 ﻿using KSerialization;
+using TUNING;
 using UnityEngine;
 
 using Kelmen.ONI.Mods.Shared.CaiLib.Utils;
 using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.BuildingUtils;
 using static Kelmen.ONI.Mods.Shared.CaiLib.Utils.StringUtils;
-using TUNING;
 
-namespace Kelmen.ONI.Mods.StorageBins
+namespace Kelmen.ONI.Mods.Doors
 {
     [SerializationConfig(MemberSerialization.OptIn)]
-    public class EfficientSmartStorageBin : StorageLockerSmartConfig
+    public class SimplePressureDoor : PressureDoorConfig
     {
-        public new const string ID = "Kelmen-EfficientSmartStorageBin";
+        public new const string ID = "Kelmen-SimplePressureDoor";
 
-        public const string DisplayName = "Efficient Smart Storage Bin";
-        public const string Description = "Work like vanilla smart storage bin, but remove power and heat.";
-        public const string Effect = "Send out true signal when defined maximum storage is meet.";
+        public const string DisplayName = "Simple Mechanized Airlock";
+        public const string Description = "Based on vanilla mechanized airlock but without power.";
+        public const string Effect = "Airlock.";
 
         public override BuildingDef CreateBuildingDef()
         {
             var buildingDef = base.CreateBuildingDef();
 
             buildingDef.PrefabID = ID;
+
             buildingDef.RequiresPowerInput = false;
             buildingDef.EnergyConsumptionWhenActive = 0;
-            buildingDef.ExhaustKilowattsWhenActive = 0;
-            //buildingDef.SelfHeatKilowattsWhenActive = 0;
 
             buildingDef.InitDef();
 
@@ -44,12 +43,12 @@ namespace Kelmen.ONI.Mods.StorageBins
 
         public static void SetTechTree()
         {
-            AddBuildingToTechnology(GameStrings.Technology.SolidMaterial.SmartStorage, ID);
+            AddBuildingToTechnology(GameStrings.Technology.Gases.Decontamination, ID);
         }
 
         public static Color32 ChangeColor()
         {
-            return new Color32(128, 255, 128, 255);
+            return new Color32(0, 128, 0, 255);
         }
 
     }
