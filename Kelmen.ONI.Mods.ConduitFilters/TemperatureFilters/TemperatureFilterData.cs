@@ -5,13 +5,8 @@ using UnityEngine;
 
 namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 {
-    //[SerializationConfig(MemberSerialization.OptIn)]
-    //public class TemperatureFilterData : KMonoBehaviour, ISaveLoadable, IThresholdSwitch
     public partial class TemperatureFilterProcess : IThresholdSwitch
     {
-        //public ConduitPortInfo OutputPort2Info = null;
-        //public int InputCell = -1;
-
         #region IThresholdSwitch
 
         [SerializeField]

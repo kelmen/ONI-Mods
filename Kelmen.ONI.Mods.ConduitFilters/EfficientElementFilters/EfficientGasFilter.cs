@@ -28,7 +28,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.EfficientElementFilters
             buildingDef.PrefabID = EfficientGasFilter.ID;
 
             buildingDef.MaterialCategory = MATERIALS.REFINED_METALS;
-
+            buildingDef.Mass = BUILDINGS.CONSTRUCTION_MASS_KG.TIER3;
             buildingDef.EnergyConsumptionWhenActive = 20; // 1 gas pipe element sensor + 2 gas shutfoff
 
             buildingDef.InitDef();

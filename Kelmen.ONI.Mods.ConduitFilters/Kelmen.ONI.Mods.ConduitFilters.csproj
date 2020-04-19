@@ -44,6 +44,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DiseaseFilters\DiseaseFilterProcess.cs" />
+    <Compile Include="DiseaseFilters\GasDiseaseFilter.cs" />
+    <Compile Include="DiseaseFilters\GasDiseaseFilterMod.cs" />
+    <Compile Include="DiseaseFilters\LiquidDiseaseFilter.cs" />
+    <Compile Include="DiseaseFilters\LiquidDiseaseFilterMod.cs" />
     <Compile Include="EfficientElementFilters\EfficientGasFilter.cs" />
     <Compile Include="EfficientElementFilters\EfficientGasFilterMod.cs" />
     <Compile Include="EfficientElementFilters\EfficientLiquidFilter.cs" />
@@ -55,6 +60,7 @@
     <Compile Include="TemperatureFilters\LiquidTemperatureFilterMod.cs" />
     <Compile Include="TemperatureFilters\TemperatureFilterData.cs" />
     <Compile Include="TemperatureFilters\TemperatureFilterProcess.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">

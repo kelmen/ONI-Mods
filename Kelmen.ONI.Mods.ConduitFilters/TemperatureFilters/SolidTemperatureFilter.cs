@@ -46,7 +46,7 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
             buildingDef.ViewMode = OverlayModes.SolidConveyor.ID;
 
             buildingDef.RequiresPowerInput = true;
-            buildingDef.PowerInputOffset = new CellOffset(0, 0);
+            //buildingDef.PowerInputOffset = new CellOffset(0, 0);
             buildingDef.EnergyConsumptionWhenActive = 20;
             buildingDef.SelfHeatKilowattsWhenActive = 0;
             buildingDef.ExhaustKilowattsWhenActive = 0;
@@ -63,34 +63,34 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 
             buildingDef.PermittedRotations = PermittedRotations.R360;
 
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.SolidConveyorIDs, ID);
-
+            //GeneratedBuildings.RegisterWithOverlay(OverlayScreen.SolidConveyorIDs, ID);
+            
             return buildingDef;
         }
 
         public override void DoPostConfigureComplete(GameObject go)
         {
-            BuildingTemplates.DoPostConfigure(go);
-            Prioritizable.AddRef(go);
-            go.AddOrGet<EnergyConsumer>();
-            go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery);
+            //BuildingTemplates.DoPostConfigure(go);
+            //Prioritizable.AddRef(go);
+            //go.AddOrGet<EnergyConsumer>();
+            //go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery);
 
-            var tagList = new List<Tag>();
-            tagList.AddRange(STORAGEFILTERS.NOT_EDIBLE_SOLIDS);
-            tagList.AddRange(STORAGEFILTERS.FOOD);
+            //var tagList = new List<Tag>();
+            //tagList.AddRange(STORAGEFILTERS.NOT_EDIBLE_SOLIDS);
+            //tagList.AddRange(STORAGEFILTERS.FOOD);
 
-            var storage = go.AddOrGet<Storage>();
-            storage.capacityKg = 0f;
-            storage.showInUI = true;
-            storage.showDescriptor = true;
-            storage.storageFilters = tagList;
-            storage.allowItemRemoval = false;
-            storage.onlyTransferFromLowerPriority = false;
+            //var storage = go.AddOrGet<Storage>();
+            //storage.capacityKg = 0f;
+            //storage.showInUI = true;
+            //storage.showDescriptor = true;
+            //storage.storageFilters = tagList;
+            //storage.allowItemRemoval = false;
+            //storage.onlyTransferFromLowerPriority = false;
 
-            go.AddOrGet<Automatable>();
-            go.AddOrGet<TreeFilterable>();
+            //go.AddOrGet<Automatable>();
+            //go.AddOrGet<TreeFilterable>();
 
-            var process = go.AddOrGet<TemperatureFilterProcess>();
+            var process = go.AddOrGet<SolidTemperatureFilterProcess>();
             process.OutputPort2Info = OutputPort2Info;
 
             go.AddOrGetDef<PoweredActiveController.Def>().showWorkingStatus = true;
@@ -106,7 +106,8 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 
         void AttachPort(GameObject go)
         {
-            go.AddComponent<ConduitSecondaryOutput>().portInfo = this.OutputPort2Info;
+            var outputPort2 = go.AddComponent<ConduitSecondaryOutput>();
+            outputPort2.portInfo = OutputPort2Info;
         }
 
         public override void DoPostConfigureUnderConstruction(GameObject go)
@@ -116,13 +117,21 @@ namespace Kelmen.ONI.Mods.ConduitFilters.TemperatureFilters
 
             var component = go.GetComponent<Constructable>();
             component.requiredSkillPerk = Db.Get().SkillPerks.ConveyorBuild.Id;
+
+            //var cfs = go.GetComponents<SolidConduitFlow>();
         }
 
         public override void ConfigureBuildingTemplate(GameObject go, Tag prefab_tag)
         {
             go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery);
 
-            BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
+            //BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
+
+            go.AddOrGet<Structure>();
+
+            var process = go.AddOrGet<SolidTemperatureFilterProcess>();
+            process.OutputPort2Info = this.OutputPort2Info;
+
         }
 
         public static void SetDescriptions()

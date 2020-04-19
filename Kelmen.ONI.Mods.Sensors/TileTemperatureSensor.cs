@@ -44,40 +44,31 @@ namespace Kelmen.ONI.Mods.Sensors
             //buildingDef.SceneLayer = Grid.SceneLayer.Building;
             buildingDef.SceneLayer = Grid.SceneLayer.LogicGates;
 
-            buildingDef.ObjectLayer = ObjectLayer.LogicGates;
+            buildingDef.ObjectLayer = ObjectLayer.LogicGate;
 
             //buildingDef.AudioCategory = "Metal";
             //SoundEventVolumeCache.instance.AddVolume("switchthermal_kanim", "PowerSwitch_on", TUNING.NOISE_POLLUTION.NOISY.TIER3);
             //SoundEventVolumeCache.instance.AddVolume("switchthermal_kanim", "PowerSwitch_off", TUNING.NOISE_POLLUTION.NOISY.TIER3);
 
+            buildingDef.LogicOutputPorts = new System.Collections.Generic.List<LogicPorts.Port>
+            {
+                OUTPUT_PORT
+            };
+
             GeneratedBuildings.RegisterWithOverlay(OverlayModes.Logic.HighlightItemIDs, TileTemperatureSensor.ID);
+            //GeneratedBuildings.RegisterWithOverlay(OverlayModes.Logic.HighlightItemIDs, ID);
+
             return buildingDef;
         }
 
         public override void DoPostConfigureComplete(GameObject go)
         {
             GeneratedBuildings.MakeBuildingAlwaysOperational(go);
-            AttachLogicOutputPort(go);
 
             var temperatureSensor = go.AddOrGet<TileTemperatureSensorProcess>();
             temperatureSensor.manuallyControlled = false;
             temperatureSensor.minTemp = 0.0f;
             temperatureSensor.maxTemp = 9999f;
-        }
-
-        void AttachLogicOutputPort(GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, TileTemperatureSensor.OUTPUT_PORT);
-        }
-
-        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
-        {
-            AttachLogicOutputPort(go);
-        }
-
-        public override void DoPostConfigureUnderConstruction(GameObject go)
-        {
-            AttachLogicOutputPort(go);
         }
 
         public static void SetDescriptions()
